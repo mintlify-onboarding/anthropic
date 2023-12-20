@@ -1,0 +1,144 @@
+---
+title: "Claude 2.1 Guide"
+---
+
+Claude 2.1 represents an improvement in specific capabilities and performance over Claude 2\. With strong accuracy upgrades, double the context window, and experimental tool use features, Claude can handle more complex reasoning and generation while remaining honest and grounded in factual evidence.
+
+Some key highlights:
+
+* Reduced hallucination and greater reliability via improved honesty
+* Expanded context window, unlocking new use cases like longer-form content and RAG
+* Early access tool use and function calling for greater flexibility and extended capabilities
+
+Note that **Claude 2.1 comes with its own [specific prompt engineering techniques](https://docs.anthropic.com/claude/docs/claude-2p1-guide#prompting-techniques-for-claude-21)**. Take a look before you try Claude 2.1 to make sure your prompts are optimized to take advantage of Claude 2.1's improved functionalities!
+
+---
+
+## 200K Context Window
+
+Claude 2.1's context window is 200K tokens, enabling it to leverage much richer contextual information to generate higher quality and more nuanced output. This unlocks new capabilities such as:
+
+* The ability to query and interact with far longer documents & passages
+* Improving RAG functionality with more retrieved results
+* Greater space for more detailed few-shot examples, instructions, and background information
+* Handling more complex reasoning, conversation, and discourse over long contexts
+
+Using Claude 2.1 automatically enables you access to its 200K context window. We encourage you to try uploading long papers, multiple documents, whole books, and other texts you've never been able to interact with via any other model. To ensure you make the best use of the 200K context window, make sure to follow our [2.1 prompt engineering techniques](https://docs.anthropic.com/claude/docs/claude-2p1-guide#prompting-techniques-for-claude-21).
+
+**Note:** Processing prompts close to 200K will take several minutes. Generally, the longer your prompt, the longer the time to first token in your response.
+
+Claude 2.1’s 200K context window is currently available to users via our first party API, our [developer console](https://console.anthropic.com/), [Claude Pro](https://www.anthropic.com/index/claude-pro), and on Amazon Bedrock via API.
+
+---
+
+## Improved Honesty for Greater Reliability & Faithfulness to Documents
+
+Claude 2.1 is our most accurate & reliable model yet. The rate of false statements has decreased by 2x, meaning that when asked a factual question that relies on Claude’s internal knowledge, Claude is 2x less likely to hallucinate an answer. 
+
+In the context of document work, such as summarization and Q&A, Claude is also 3-4x more likely to admit it doesn’t know when the given text does not support a claim or answer the question, rather than mistakenly assert that the claim is supported or make up an answer drawn from its internal knowledge.
+
+Both of these honesty improvements lead to greater factuality and reliability of Claude's outputs.
+
+For further information on how we achieved these accuracy improvements, see the [2.1 blog post on our website](https://www.anthropic.com/index/claude-2-1).
+
+---
+
+## System Prompt
+
+Claude 2.1 now supports system prompts, a new functionality that can improve Claude’s performance in a variety of ways, such as:
+
+* Greater character depth and role adherence in role playing scenarios, particularly over longer conversations
+* Stricter adherence to guidelines, rules, and instructions
+
+This represents a structural change but not a content change from former ways of prompting Claude. For more information on system prompts, see our page on [how to use system prompts](https://docs.anthropic.com/claude/docs/how-to-use-system-prompts) with Claude.
+
+---
+
+## Experimental Tool Use
+
+Claude 2.1 also features experimental capabilities for tool use. Tool use refers to capabilities that allow Claude to complete tasks in ways that were not previously possible with language generation alone. This includes enabling Claude to accurately retrieve and process data from additional knowledge sources as well as invoke functions and take actions. Examples include:
+
+* Function calling for arbitrary functions
+* Search over web sources
+* Retrieval over private knowledge bases
+
+While still in early stages, this functionality unlocks vast new possibilities for flexibly extending Claude's skills. With tool use, you can pass Claude a set of tools and have Claude decide which tool to use to help you achieve your task.
+
+Access to this feature is currently limited to select early access partners, with plans for open access in the near future. If you are interested in gaining early access, please contact your Anthropic account partner.
+
+---
+
+## Prompting Techniques for Claude 2.1
+
+For the most part, techniques for prompting Claude 2.1 and its 200K context window are the same as techniques for 100K — with one **major** callout:
+
+> ## ❗️
+> 
+> Prompt Document-Query Structuring
+> 
+> To ensure the best performance for Claude 2.1, it is **vital** that you place your **inputs & documents before any questions that reference or utilize that content**. 
+> 
+> Doing so maximizes Claude 2.1's superior RAG & document analysis capabilities.
+
+Inputs mean any additional information of significant length that you expect Claude to utilize in order to perform its task. Inputs can be any of the following (non-exhaustive):
+
+* Natural language text: prose, reports, articles, books, essays, etc.
+* Structured documents: forms, questionnaires, tables, lists
+* Code snippets
+* RAG results: chunked documents & search snippets  
+Conversational text: transcripts, chat history (prompts & responses), questions & answers
+
+### Examples of proper prompt structuring
+
+| Role | Bad Prompt                                                                                       |
+| ---- | ------------------------------------------------------------------------------------------------ |
+| User | What do these academic papers say about the future of AI development?`<papers>{{PAPERS}}</papers>` |
+
+| Role | Good Prompt                                                                                                                                                                                   |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | Here are some academic papers. Read these papers carefully, as you will be asked questions about them.`<papers>{{PAPERS}}</papers>`What do these papers say about the future of AI development? |
+
+———
+
+| Role | Bad Prompt                                                                                                                                 |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| User | Use the following two books to write a 5 paragraph essay on Kantian ethics.`<books><book1>{{BOOK1}}</book1><book2>{{BOOK2}}</book2></books>` |
+
+| Role | Good Prompt                                                                                                                                                                        |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | Here are two books for you to use to write an essay:`<books><book1>{{BOOK1}}</book1><book2>{{BOOK2}}</book2></books>`Using these books, write a 5 paragraph essay on Kantian ethics. |
+
+———
+
+| Role | Bad Prompt                                                                                         |
+| ---- | -------------------------------------------------------------------------------------------------- |
+| User | Check this Python script for errors. If there are no errors, say "NO ERRORS".`<code>{{CODE}}</code>` |
+
+| Role | Good Prompt                                                                                                        |
+| ---- | ------------------------------------------------------------------------------------------------------------------ |
+| User | Here is a Python script:`<code>{{CODE}}</code>`Check the script for errors. If there are no errors, say "NO ERRORS". |
+
+While it has always been the case for all Claude models that placing queries after documents & inputs yields strong performance improvements over the reverse ordering, this is even more true for Claude 2.1 and a fundamental necessity in order to produce good results when the documents are collectively longer than a few thousand tokens.
+
+### Hallucination Mitigation
+
+If Claude 2.1 hallucinates function calls and other errant output formatting, you can remind Claude of the boundaries of its task and what it can or cannot do:
+
+| Role | Prompt                                                                                                                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | \[Task instructions\]You ALWAYS follow these guidelines when writing your response:`<guidelines>\- `You don't have access to functions. Therefore, don't refer to them.`</guidelines>{{QUERY}}` |
+
+If you want to do this with a system prompt, you can format it this way:
+
+| Role   | Prompt                                                                                                                                                                             |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| System | \[Task instructions\]You ALWAYS follow these guidelines when writing your response:`<guidelines>\- `You don't have access to functions. Therefore, don't refer to them.`</guidelines>` |
+| User   | `{{QUERY}} `                                                                                                                                                                         |
+
+### System Prompt
+
+For information on prompting best practices using the system prompt, see [how to use system prompts](https://docs.anthropic.com/claude/docs/how-to-use-system-prompts) with Claude.
+
+———
+
+We will be releasing more Claude 2.1 prompting techniques as we announce and enable open access to Claude 2.1's experimental features.

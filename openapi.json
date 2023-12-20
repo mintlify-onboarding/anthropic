@@ -1,0 +1,993 @@
+{
+        "openapi": "3.0.2",
+        "info": {
+            "title": "Anthropic API",
+            "version": "0.0.0"
+        },
+        "paths": {
+            "/v1/messages": {
+                "post": {
+                    "tags": [
+                        "Messages"
+                    ],
+                    "summary": "Create a Message",
+                    "description": "Create a Message.\n\nSend a structured list of input messages, and the model will generate the next message in the conversation.\n\nMessages can be used for either single queries to the model or for multi-turn conversations.\n\nThe Messages API is currently in beta. During beta, you must send the `anthropic-beta: messages-2023-12-15` header in your requests. If you are using our client SDKs, this is handled for you automatically.",
+                    "operationId": "messages_post",
+                    "parameters": [],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateMessageParams"
+                                }
+                            }
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Successful Response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/Message"
+                                    }
+                                }
+                            }
+                        },
+                        "4XX": {
+                            "description": "Client Error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/ErrorResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "x-readme": {
+                        "explorer-enabled": false,
+                        "samples-languages": [
+                            "shell",
+                            "python",
+                            "javascript"
+                        ],
+                        "code-samples": [
+                            {
+                                "language": "shell",
+                                "code": "curl -X POST https://api.anthropic.com/v1/messages \\\n     --header \"x-api-key: $ANTHROPIC_API_KEY\" \\\n     --header \"anthropic-version: 2023-06-01\" \\\n     --header \"anthropic-beta: messages-2023-12-15\" \\\n     --header \"content-type: application/json\" \\\n     --data \\\n'{\n    \"model\": \"claude-2.1\",\n    \"max_tokens\": 1024,\n    \"messages\": [\n        {\"role\": \"user\", \"content\": \"Hello, Claude\"}\n    ]\n}'"
+                            },
+                            {
+                                "language": "python",
+                                "code": "import anthropic\n\nanthropic.Anthropic().beta.messages.create(\n    model=\"claude-2.1\",\n    max_tokens=1024,\n    messages=[\n        {\"role\": \"user\", \"content\": \"Hello, Claude\"}\n    ]\n)"
+                            },
+                            {
+                                "language": "javascript",
+                                "code": "import Anthropic from '@anthropic-ai/sdk';\n\nconst anthropic = new Anthropic();\n\nawait anthropic.beta.messages.create({\n  model: 'claude-2.1',\n  max_tokens: 1024,\n  messages: [\n    {\"role\": \"user\", \"content\": \"Hello, Claude\"}\n  ]\n});"
+                            }
+                        ]
+                    }
+                }
+            },
+            "/v1/complete": {
+                "post": {
+                    "tags": [
+                        "Text Completions"
+                    ],
+                    "summary": "Create a Text Completion",
+                    "operationId": "complete_post",
+                    "parameters": [],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompletionRequest"
+                                }
+                            }
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Successful Response",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/CompletionResponse"
+                                    }
+                                }
+                            }
+                        },
+                        "4XX": {
+                            "description": "Client Error",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/ErrorResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "x-readme": {
+                        "explorer-enabled": false,
+                        "samples-languages": [
+                            "shell",
+                            "python",
+                            "javascript"
+                        ],
+                        "code-samples": [
+                            {
+                                "language": "shell",
+                                "code": "curl -X POST https://api.anthropic.com/v1/complete \\\n     --header \"x-api-key: $ANTHROPIC_API_KEY\" \\\n     --header \"anthropic-version: 2023-06-01\" \\\n     --header \"content-type: application/json\" \\\n     --data \\\n'{\n    \"model\": \"claude-2.1\",\n    \"max_tokens_to_sample\": 1024,\n    \"prompt\": \"\\n\\nHuman: Hello, Claude\\n\\nAssistant:\"\n}'"
+                            },
+                            {
+                                "language": "python",
+                                "code": "import anthropic\nfrom anthropic import HUMAN_PROMPT, AI_PROMPT\n\nanthropic.Anthropic().completions.create(\n    model=\"claude-2.1\",\n    max_tokens_to_sample=1024,\n    prompt=f\"{HUMAN_PROMPT} Hello, Claude{AI_PROMPT}\",\n)"
+                            },
+                            {
+                                "language": "javascript",
+                                "code": "import Anthropic from '@anthropic-ai/sdk';\n\nconst anthropic = new Anthropic();\n\nawait anthropic.completions.create({\n  model: 'claude-2.1',\n  max_tokens_to_sample: 1024,\n  prompt: `${Anthropic.HUMAN_PROMPT} Hello, Claude${Anthropic.AI_PROMPT}`,\n});"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "components": {
+            "schemas": {
+                "APIError": {
+                    "title": "APIError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "api_error",
+                            "enum": [
+                                "api_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Internal server error",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "AuthenticationError": {
+                    "title": "AuthenticationError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "authentication_error",
+                            "enum": [
+                                "authentication_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Authentication error",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "CompletionResponse": {
+                    "title": "CompletionResponse",
+                    "required": [
+                        "type",
+                        "id",
+                        "completion",
+                        "stop_reason",
+                        "model"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "enum": [
+                                "completion"
+                            ],
+                            "type": "string",
+                            "default": "completion"
+                        },
+                        "id": {
+                            "title": "Id",
+                            "type": "string",
+                            "description": "Unique object identifier.\n\nThe format and length of IDs may change over time."
+                        },
+                        "completion": {
+                            "title": "Completion",
+                            "type": "string",
+                            "description": "The resulting completion up to and excluding the stop sequences.",
+                            "example": " Hello! My name is Claude."
+                        },
+                        "stop_reason": {
+                            "title": "Stop Reason",
+                            "type": "string",
+                            "description": "The reason that we stopped.\n\nThis may be one the following values:\n* `\"stop_sequence\"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model\n* `\"max_tokens\"`: we exceeded `max_tokens_to_sample` or the model's maximum",
+                            "example": "stop_sequence"
+                        },
+                        "model": {
+                            "title": "Model",
+                            "type": "string",
+                            "description": "The model that handled the request.",
+                            "example": "claude-2.1"
+                        }
+                    },
+                    "example": {
+                        "id": "compl_018CKm6gsux7P8yMcwZbeCPw",
+                        "type": "completion",
+                        "completion": " Hello! My name is Claude.",
+                        "stop_reason": "stop_sequence",
+                        "model": "claude-2.1"
+                    }
+                },
+                "ErrorResponse": {
+                    "title": "ErrorResponse",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "error",
+                            "enum": [
+                                "error"
+                            ],
+                            "type": "string"
+                        },
+                        "error": {
+                            "title": "Error",
+                            "discriminator": {
+                                "propertyName": "type",
+                                "mapping": {
+                                    "invalid_request_error": "#/components/schemas/InvalidRequestError",
+                                    "authentication_error": "#/components/schemas/AuthenticationError",
+                                    "permission_error": "#/components/schemas/PermissionError",
+                                    "not_found_error": "#/components/schemas/NotFoundError",
+                                    "rate_limit_error": "#/components/schemas/RateLimitError",
+                                    "api_error": "#/components/schemas/APIError",
+                                    "overloaded_error": "#/components/schemas/OverloadedError"
+                                }
+                            },
+                            "oneOf": [
+                                {
+                                    "$ref": "#/components/schemas/InvalidRequestError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/AuthenticationError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/PermissionError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/RateLimitError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/APIError"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/OverloadedError"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "error"
+                    ]
+                },
+                "InvalidRequestError": {
+                    "title": "InvalidRequestError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "invalid_request_error",
+                            "enum": [
+                                "invalid_request_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Invalid request",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "Message": {
+                    "title": "Message",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "title": "Id",
+                            "description": "Unique object identifier.\n\nThe format and length of IDs may change over time.",
+                            "example": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
+                            "type": "string"
+                        },
+                        "type": {
+                            "title": "Type",
+                            "default": "message",
+                            "enum": [
+                                "message"
+                            ],
+                            "type": "string"
+                        },
+                        "role": {
+                            "title": "Role",
+                            "description": "Conversational role of the generated message.\n\nThis will always be `\"assistant\"`.",
+                            "default": "assistant",
+                            "enum": [
+                                "assistant"
+                            ],
+                            "type": "string"
+                        },
+                        "content": {
+                            "title": "Content",
+                            "description": "Content generated by the model.\n\nThis is an array of content blocks, each of which has a `type` that determines its shape. Currently, the only `type` available is `\"text\"`.\n\nExample:\n\n```json\n[{\"type\": \"text\", \"text\": \"Hi, I'm Claude.\"}]\n```\n\nIf the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.\n\nFor example, if the input `messages` were:\n```json\n[\n  {\n    \"role\": \"user\",\n    \"content\": \"What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun\"\n  },\n  {\n    \"role\": \"assistant\",\n    \"content\": \"The best answer is (\"\n  }\n]\n```\n\nThen the response `content` might be:\n\n```json\n[{\"type\": \"text\", \"text\": \"B)\"}]\n```",
+                            "example": [
+                                {
+                                    "type": "text",
+                                    "text": "Blue is often seen as a calming and soothing color."
+                                }
+                            ],
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/ResponseTextBlock"
+                            }
+                        },
+                        "model": {
+                            "title": "Model",
+                            "description": "The model that handled the request.",
+                            "maxLength": 256,
+                            "minLength": 1,
+                            "example": "claude-2.1",
+                            "type": "string"
+                        },
+                        "stop_reason": {
+                            "title": "Stop Reason",
+                            "description": "The reason that we stopped.\n\nThis may be one the following values:\n* `\"end_turn\"`: the model reached a natural stopping point\n* `\"max_tokens\"`: we exceeded the requested `max_tokens` or the model's maximum\n* `\"stop_sequence\"`: one of your provided custom `stop_sequences` was generated\n\nNote that these values are different than those in `/v1/complete`, where `end_turn` and `stop_sequence` were not differentiated.\n\nIn non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.",
+                            "example": "end_turn",
+                            "nullable": true,
+                            "enum": [
+                                "end_turn",
+                                "max_tokens",
+                                "stop_sequence"
+                            ],
+                            "type": "string"
+                        },
+                        "stop_sequence": {
+                            "title": "Stop Sequence",
+                            "description": "Which custom stop sequence was generated.\n\nThis value will be non-null if one of your custom stop sequences was generated.",
+                            "nullable": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "type",
+                        "role",
+                        "content",
+                        "model",
+                        "stop_reason",
+                        "stop_sequence"
+                    ],
+                    "example": {
+                        "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
+                        "type": "message",
+                        "model": "claude-2.1",
+                        "role": "assistant",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Blue is often seen as a calming and soothing color."
+                            }
+                        ],
+                        "stop_reason": "end_turn",
+                        "stop_sequence": null
+                    }
+                },
+                "NotFoundError": {
+                    "title": "NotFoundError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "not_found_error",
+                            "enum": [
+                                "not_found_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Not found",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "OverloadedError": {
+                    "title": "OverloadedError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "overloaded_error",
+                            "enum": [
+                                "overloaded_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Overloaded",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "PermissionError": {
+                    "title": "PermissionError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "permission_error",
+                            "enum": [
+                                "permission_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Permission denied",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "RateLimitError": {
+                    "title": "RateLimitError",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "rate_limit_error",
+                            "enum": [
+                                "rate_limit_error"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "title": "Message",
+                            "default": "Rate limited",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "ResponseTextBlock": {
+                    "title": "ResponseTextBlock",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "text",
+                            "enum": [
+                                "text"
+                            ],
+                            "type": "string"
+                        },
+                        "text": {
+                            "title": "Text",
+                            "maxLength": 5000000,
+                            "minLength": 0,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "text"
+                    ]
+                },
+                "Metadata": {
+                    "title": "Metadata",
+                    "type": "object",
+                    "properties": {
+                        "user_id": {
+                            "title": "User Id",
+                            "description": "An external identifier for the user who is associated with the request.\n\nThis should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.",
+                            "maxLength": 256,
+                            "example": "13803d75-b4b5-4c3e-b2a2-6f21399b021b",
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "CompletionRequest": {
+                    "title": "CompletionRequest",
+                    "type": "object",
+                    "properties": {
+                        "model": {
+                            "title": "Model",
+                            "description": "The model that will complete your prompt.\n\nAs we improve Claude, we develop new versions of it that you can query. The `model` parameter controls which version of Claude responds to your request. Right now we offer two model families: Claude, and Claude Instant. You can use them by setting `model` to `\"claude-2.1\"` or `\"claude-instant-1.2\"`, respectively.\n\nSee [models](https://docs.anthropic.com/claude/reference/selecting-a-model) for additional details and options.",
+                            "example": "claude-2.1",
+                            "type": "string"
+                        },
+                        "prompt": {
+                            "title": "Prompt",
+                            "description": "The prompt that you want Claude to complete.\n\nFor proper response generation you will need to format your prompt using alternating `\\n\\nHuman:` and `\\n\\nAssistant:` conversational turns. For example:\n\n```\n\"\\n\\nHuman: {userQuestion}\\n\\nAssistant:\"\n```\n\nSee [prompt validation](https://anthropic.readme.io/claude/reference/prompt-validation) and our guide to [prompt design](https://docs.anthropic.com/claude/docs/introduction-to-prompt-design) for more details.",
+                            "minLength": 1,
+                            "example": "\n\nHuman: Hello, world!\n\nAssistant:",
+                            "type": "string"
+                        },
+                        "max_tokens_to_sample": {
+                            "title": "Max Tokens To Sample",
+                            "description": "The maximum number of tokens to generate before stopping.\n\nNote that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.",
+                            "example": 256,
+                            "minimum": 1,
+                            "type": "integer"
+                        },
+                        "stop_sequences": {
+                            "title": "Stop Sequences",
+                            "description": "Sequences that will cause the model to stop generating.\n\nOur models stop on `\"\\n\\nHuman:\"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "temperature": {
+                            "title": "Temperature",
+                            "description": "Amount of randomness injected into the response.\n\nDefaults to 1. Ranges from 0 to 1. Use temp closer to 0 for analytical / multiple choice, and closer to 1 for creative and generative tasks.",
+                            "example": 1,
+                            "minimum": 0,
+                            "maximum": 1,
+                            "type": "number"
+                        },
+                        "top_p": {
+                            "title": "Top P",
+                            "description": "Use nucleus sampling.\n\nIn nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`. You should either alter `temperature` or `top_p`, but not both.",
+                            "example": 0.7,
+                            "minimum": 0,
+                            "maximum": 1,
+                            "type": "number"
+                        },
+                        "top_k": {
+                            "title": "Top K",
+                            "description": "Only sample from the top K options for each subsequent token.\n\nUsed to remove \"long tail\" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).",
+                            "example": 5,
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "metadata": {
+                            "title": "Metadata",
+                            "description": "An object describing metadata about the request.",
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/Metadata"
+                                }
+                            ]
+                        },
+                        "stream": {
+                            "title": "Stream",
+                            "description": "Whether to incrementally stream the response using server-sent events.\n\nSee [streaming](https://docs.anthropic.com/claude/reference/text-completions-streaming) for details.",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "prompt",
+                        "max_tokens_to_sample",
+                        "model"
+                    ],
+                    "additionalProperties": false,
+                    "example": {
+                        "model": "claude-2.1",
+                        "prompt": "\n\nHuman: Hello, world!\n\nAssistant:",
+                        "max_tokens_to_sample": 256
+                    }
+                },
+                "RequestTextBlock": {
+                    "title": "RequestTextBlock",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "enum": [
+                                "text"
+                            ],
+                            "type": "string"
+                        },
+                        "text": {
+                            "title": "Text",
+                            "minLength": 1,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "text"
+                    ],
+                    "additionalProperties": false
+                },
+                "InputMessage": {
+                    "title": "InputMessage",
+                    "type": "object",
+                    "properties": {
+                        "role": {
+                            "title": "Role",
+                            "enum": [
+                                "user",
+                                "assistant"
+                            ],
+                            "type": "string"
+                        },
+                        "content": {
+                            "title": "Content",
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RequestTextBlock"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "role",
+                        "content"
+                    ],
+                    "additionalProperties": false
+                },
+                "CreateMessageParams": {
+                    "title": "CreateMessageParams",
+                    "type": "object",
+                    "properties": {
+                        "model": {
+                            "title": "Model",
+                            "description": "The model that will complete your prompt.\n\nAs we improve Claude, we develop new versions of it that you can query. The `model` parameter controls which version of Claude responds to your request. Right now we offer two model families: Claude, and Claude Instant. You can use them by setting `model` to `\"claude-2.1\"` or `\"claude-instant-1.2\"`, respectively.\n\nSee [models](https://docs.anthropic.com/claude/reference/selecting-a-model) for additional details and options.",
+                            "maxLength": 256,
+                            "minLength": 1,
+                            "example": "claude-2.1",
+                            "type": "string"
+                        },
+                        "messages": {
+                            "title": "Messages",
+                            "description": "Input messages.\n\nOur models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation.\n\nEach input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages. The first message must always use the `user` role.\n\nIf the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.\n\nExample with a single `user` message:\n\n```json\n[{\"role\": \"user\", \"content\": \"Hello, Claude\"}]\n```\n\nExample with multiple conversational turns:\n\n```json\n[\n  {\"role\": \"user\", \"content\": \"Hello there.\"},\n  {\"role\": \"assistant\", \"content\": \"Hi, I'm Claude. How can I help you?\"},\n  {\"role\": \"user\", \"content\": \"Can you explain LLMs in plain English?\"},\n]\n```\n\nExample with a partially-filled response from Claude:\n\n```json\n[\n  {\"role\": \"user\", \"content\": \"Please describe yourself using only JSON\"},\n  {\"role\": \"assistant\", \"content\": \"Here is my JSON description:\\n{\"},\n]\n```\n\nEach input message `content` may be either a single `string` or an array of content blocks, where each block has a specific `type`. Using a `string` is shorthand for an array of one content block of type `\"text\"`. The following input messages are equivalent:\n\n```json\n{\"role\": \"user\", \"content\": \"Hello, Claude\"}\n```\n\n```json\n{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"Hello, Claude\"}]}\n```\n\nDuring beta, the Messages API only accepts content blocks of type `\"text\"`, and at most one block per message.\n\nSee our [guide to prompt design](https://docs.anthropic.com/claude/docs/introduction-to-prompt-design) for more details on how to best construct prompts.",
+                            "minLength": 1,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/InputMessage"
+                            }
+                        },
+                        "max_tokens": {
+                            "title": "Max Tokens",
+                            "description": "The maximum number of tokens to generate before stopping.\n\nNote that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.\n\nDifferent models have different maximum values for this parameter.  See [input and output sizes](https://docs.anthropic.com/claude/reference/input-and-output-sizes) for details.",
+                            "minimum": 1,
+                            "example": 1024,
+                            "type": "integer"
+                        },
+                        "system": {
+                            "title": "System",
+                            "description": "System prompt.\n\nA system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.anthropic.com/claude/docs/how-to-use-system-prompts).",
+                            "example": "Today's date is 2024-01-01.",
+                            "type": "string"
+                        },
+                        "metadata": {
+                            "title": "Metadata",
+                            "description": "An object describing metadata about the request.",
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/Metadata"
+                                }
+                            ]
+                        },
+                        "stop_sequences": {
+                            "title": "Stop Sequences",
+                            "description": "Custom text sequences that will cause the model to stop generating.\n\nOur models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `\"end_turn\"`.\n\nIf you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `\"stop_sequence\"` and the response `stop_sequence` value will contain the matched stop sequence.",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "stream": {
+                            "title": "Stream",
+                            "description": "Whether to incrementally stream the response using server-sent events.\n\nSee [streaming](https://docs.anthropic.com/claude/reference/messages-streaming) for details.",
+                            "type": "boolean"
+                        },
+                        "temperature": {
+                            "title": "Temperature",
+                            "description": "Amount of randomness injected into the response.\n\nDefaults to 1. Ranges from 0 to 1. Use temp closer to 0 for analytical / multiple choice, and closer to 1 for creative and generative tasks.",
+                            "example": 1,
+                            "minimum": 0,
+                            "maximum": 1,
+                            "type": "number"
+                        },
+                        "top_k": {
+                            "title": "Top K",
+                            "description": "Only sample from the top K options for each subsequent token.\n\nUsed to remove \"long tail\" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).",
+                            "example": 5,
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "top_p": {
+                            "title": "Top P",
+                            "description": "Use nucleus sampling.\n\nIn nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`. You should either alter `temperature` or `top_p`, but not both.",
+                            "example": 0.7,
+                            "minimum": 0,
+                            "maximum": 1,
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "model",
+                        "messages",
+                        "max_tokens"
+                    ],
+                    "additionalProperties": false,
+                    "example": {
+                        "model": "claude-2.1",
+                        "max_tokens": 1024,
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": "In one sentence, what is good about the color blue?"
+                            }
+                        ]
+                    }
+                },
+                "MessageStartEvent": {
+                    "title": "MessageStartEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "message_start",
+                            "enum": [
+                                "message_start"
+                            ],
+                            "type": "string"
+                        },
+                        "message": {
+                            "$ref": "#/components/schemas/Message"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "message"
+                    ]
+                },
+                "MessageDelta": {
+                    "title": "MessageDelta",
+                    "type": "object",
+                    "properties": {
+                        "stop_reason": {
+                            "title": "Stop Reason",
+                            "nullable": true,
+                            "enum": [
+                                "end_turn",
+                                "max_tokens",
+                                "stop_sequence"
+                            ],
+                            "type": "string"
+                        },
+                        "stop_sequence": {
+                            "title": "Stop Sequence",
+                            "nullable": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "stop_reason",
+                        "stop_sequence"
+                    ]
+                },
+                "MessageDeltaEvent": {
+                    "title": "MessageDeltaEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "message_delta",
+                            "enum": [
+                                "message_delta"
+                            ],
+                            "type": "string"
+                        },
+                        "delta": {
+                            "$ref": "#/components/schemas/MessageDelta"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "delta"
+                    ]
+                },
+                "MessageStopEvent": {
+                    "title": "MessageStopEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "message_stop",
+                            "enum": [
+                                "message_stop"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ]
+                },
+                "ContentBlockStartEvent": {
+                    "title": "ContentBlockStartEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "content_block_start",
+                            "enum": [
+                                "content_block_start"
+                            ],
+                            "type": "string"
+                        },
+                        "index": {
+                            "title": "Index",
+                            "type": "integer"
+                        },
+                        "content_block": {
+                            "$ref": "#/components/schemas/ResponseTextBlock"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "index",
+                        "content_block"
+                    ]
+                },
+                "TextContentBlockDelta": {
+                    "title": "TextContentBlockDelta",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "text_delta",
+                            "enum": [
+                                "text_delta"
+                            ],
+                            "type": "string"
+                        },
+                        "text": {
+                            "title": "Text",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "text"
+                    ]
+                },
+                "ContentBlockDeltaEvent": {
+                    "title": "ContentBlockDeltaEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "content_block_delta",
+                            "enum": [
+                                "content_block_delta"
+                            ],
+                            "type": "string"
+                        },
+                        "index": {
+                            "title": "Index",
+                            "type": "integer"
+                        },
+                        "delta": {
+                            "$ref": "#/components/schemas/TextContentBlockDelta"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "index",
+                        "delta"
+                    ]
+                },
+                "ContentBlockStopEvent": {
+                    "title": "ContentBlockStopEvent",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "title": "Type",
+                            "default": "content_block_stop",
+                            "enum": [
+                                "content_block_stop"
+                            ],
+                            "type": "string"
+                        },
+                        "index": {
+                            "title": "Index",
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "index"
+                    ]
+                },
+                "MessageStreamEvent": {
+                    "title": "MessageStreamEvent",
+                    "discriminator": {
+                        "propertyName": "type",
+                        "mapping": {
+                            "message_start": "#/components/schemas/MessageStartEvent",
+                            "message_delta": "#/components/schemas/MessageDeltaEvent",
+                            "message_stop": "#/components/schemas/MessageStopEvent",
+                            "content_block_start": "#/components/schemas/ContentBlockStartEvent",
+                            "content_block_delta": "#/components/schemas/ContentBlockDeltaEvent",
+                            "content_block_stop": "#/components/schemas/ContentBlockStopEvent"
+                        }
+                    },
+                    "oneOf": [
+                        {
+                            "$ref": "#/components/schemas/MessageStartEvent"
+                        },
+                        {
+                            "$ref": "#/components/schemas/MessageDeltaEvent"
+                        },
+                        {
+                            "$ref": "#/components/schemas/MessageStopEvent"
+                        },
+                        {
+                            "$ref": "#/components/schemas/ContentBlockStartEvent"
+                        },
+                        {
+                            "$ref": "#/components/schemas/ContentBlockDeltaEvent"
+                        },
+                        {
+                            "$ref": "#/components/schemas/ContentBlockStopEvent"
+                        }
+                    ]
+                }
+            }
+        },
+        "servers": [
+            {
+                "url": "https://api.anthropic.com"
+            }
+        ]
+}

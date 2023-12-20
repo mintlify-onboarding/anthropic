@@ -1,0 +1,54 @@
+{
+    "name": "Anthropic",
+    "logo": {
+      "light": "/logo/light.png",
+      "dark": "/logo/dark.png"
+    },
+    "favicon": "/favicon.png",
+    "colors": {
+      "primary": "#191919",
+      "light": "#FAFAFA",
+      "dark": "#191919"
+    },
+    "tabs": [
+        {
+            "name": "API Reference",
+            "url": "api-reference"
+        }
+    ],
+    "modeToggle": {
+        "default": "light"
+    },
+    "topbarCtaButton": {
+      "name": "Talk to Claude",
+      "url": "https://claude.ai/login?returnTo=%2F"
+    },
+    "anchors": [
+      {
+        "name": "support",
+        "icon": "headset",
+        "url": "https://support.anthropic.com/en/"
+      },
+      {
+        "name": "Research",
+        "icon": "books",
+        "url": "https://www.anthropic.com/research"
+      },
+      {
+        "name": "News",
+        "icon": "newspaper",
+        "url": "https://www.anthropic.com/index"
+      }
+    ],
+    "navigation": [
+        {
+            "group": "introduction",
+            "pages": ["introduction"]
+          }
+    ],
+    "footerSocials":
+      {
+          "twitter": "https://twitter.com/AnthropicAI?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor",
+          "linkedin": "https://www.linkedin.com/company/anthropicresearch/"
+      }
+  }

@@ -1,0 +1,22 @@
+---
+title: "Multiple Choice and Classification"
+---
+
+You can ask Claude to classify inputs as follows.
+
+---
+
+Claude is a conversational agent, so often it will explain at length why it selected a given option. If you just want a fast multiple-choice answer and no explanation, you can put words in Claude's mouth and have Claude respond in a particular way.
+
+For example, if the available options start with `(`, you can end your prompt with an Assistant message "`My answer is (`". That way you can immediately get a response in the first token. 
+
+| Role      | Prompt                                                                                                                                                                                                                                                                                                                                                                  |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User      | You are a customer service agent that is classifying emails by type.Email:<email>Hi -- My Mixmaster4000 is producing a strange noise when I operate it. It also smells a bit smoky and plasticky, like burning electronics. I need a replacement.</email>Categories are:(A) Pre-sale question(B) Broken or defective item(C) Billing question(D) Other (please explain) |
+| Assistant | My answer is (                                                                                                                                                                                                                                                                                                                                                          |
+
+| Role      | Response                    |
+| --------- | --------------------------- |
+| Assistant | B) Broken or defective item |
+
+**Note:** You can also rewrite this prompt using a system prompt. It would involve moving everything in the `User` role except the email into the `system` parameter. See [system prompt prompting techniques](how-to-use-system-prompts#system-prompt-prompting-techniques) for more details.

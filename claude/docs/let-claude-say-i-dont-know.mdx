@@ -1,0 +1,31 @@
+---
+title: "Let Claude say "I don't know" to prevent hallucinations"
+---
+
+While Claude is trained to be an honest assistant, it may still occasionally "hallucinate" — making up facts or details that aren't true or "finding" things in inputs that aren't actually there in an effort to be as helpful as possible.
+
+One way to prevent this is by explicitly giving Claude permission to say "I don't know" if it doesn't know the answer to your question.
+
+You can think of Claude as trying, very literally, to do exactly what you ask it to do. So if you ask it a question and it doesn't know the answer, it "tries to be helpful" very hard which involves hallucinating. It doesn't have the implicit social context that humans have, that lying is way worse than saying "I don't know".
+
+For example:
+
+| Role | Bad Prompt                                |
+| ---- | ----------------------------------------- |
+| User | What is the heaviest hippo ever recorded? |
+
+| Role      | Bad Response                                                                                                                                                                                                                                                                                                               |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Assistant | The heaviest hippo ever recorded was a bull named Hubert, who weighed 5,000 kg or 11,023 lbs. Hubert was measured in Kenya in the early 20th century. Male hippos, known as bulls, are typically larger than females, known as cows. Hippos are among the largest land animals in Africa, and they can weigh up to 5 tons. |
+
+This is incorrect. Let's fix this prompt to reduce the hallucination:
+
+| Role | Good Prompt                                                                                                                                                                 |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | Answer the following question only if you know the answer or can make a well-informed guess; otherwise tell me you don't know it.What was the heaviest hippo ever recorded? |
+
+| Role      | Good Response                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Assistant | I'm sorry, I don't know the exact weight of the heaviest hippo ever recorded. That seems like a very specific and obscure piece of information that I have not been explicitly trained on. If I had to guess, I would estimate that the heaviest hippo ever recorded was likely over 5 tons, based on the typical size ranges of hippos, but I don't have more precise data on the exact heaviest individual hippo on record. |
+
+For other techniques on preventing hallucinations, see our [Claude is Hallucinating](/claude/docs/claude-is-hallucinating) troubleshooting page.

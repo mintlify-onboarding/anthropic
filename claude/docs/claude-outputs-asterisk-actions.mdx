@@ -1,0 +1,17 @@
+---
+title: "Claude outputs asterisk actions"
+---
+
+When given a roleplaying prompt or system prompt, Claude sometimes likes to illustrate its response creatively by writing stage directions like `*smiles*` or `*waves*`. If this is undesired, you can post-process the output to remove words in between asterisks. 
+
+An example of how to do this in Python:
+
+Python
+
+`import re
+
+text = "Hello. *My name is Claude. *I am an AI assistant."
+cleaned = re.sub(r'\*.*?\*', '', text)
+print(cleaned)
+> Hello. I am an AI assistant.
+`

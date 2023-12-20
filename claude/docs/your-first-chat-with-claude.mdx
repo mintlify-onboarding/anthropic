@@ -1,0 +1,38 @@
+---
+title: "Your first chat with Claude"
+---
+
+Claude is capable of many things, and how well it responds to you can depend on how you ask it questions. Whether via Slack or our web interface, here is some general advice on your first few conversations.
+
+## Talk to Claude like a contractor
+
+Speak to Claude like a contractor you’ve hired, _not_ like a bare text completion API. For example:
+
+| Role | Bad Prompt                                                                   |
+| ---- | ---------------------------------------------------------------------------- |
+| User | An ingenious researcher wrote a summary of laser optics technology, writing: |
+
+This will not work well to prompt Claude. Imagine you walked up to someone and said this. How might they respond? A little confused, perhaps.
+
+Instead, just directly ask Claude for what you want:
+
+| Role | Good Prompt                                               |
+| ---- | --------------------------------------------------------- |
+| User | Write an expert-level summary of laser optics technology. |
+
+## Claude "remembers" entire threads
+
+When interacting with Claude through Slack or our web interface, it can see anything else you wrote in the thread.
+
+It can’t remember anything else you said prior to this thread (e.g., other threads, even if simultaneous). Its memory is cleared between threads.
+
+## Limitations to keep in mind
+
+* 🎭 Claude is “playing a role” as a helpful assistant. It will often incorrectly report its own abilities, or claim to be “updating its memory”, when in fact it does not have any memory of prior conversations!
+* ➗ Claude will often make mistakes with complicated arithmetic and reasoning, and sometimes with more basic tasks. If given a long list of instructions it will often make mistakes when attempting to comply with all of them, but see [Break complex tasks into subtasks](/claude/docs/break-tasks-into-subtasks) and [Prompt Chaining](/claude/docs/prompt-chaining) for some workarounds.
+* 👻 Claude still sometimes hallucinates or makes up information and details. It will sometimes fill in information from its memory that isn’t present in long documents it’s presented with when asked questions.
+* 🌐 Claude has read a lot on the internet, so it knows things about the real world… but it does **not** have internet access.
+* ⏳ Claude was trained on data that can be up to 2 years out of date.
+* 📅 Similarly, Claude does not know today’s date, nor does it know about current events.
+* 🔨 It cannot (yet!) take actions in the real world — _but it can suggest actions to take._
+* 📇 It cannot (yet!) look things up — _but it can suggest what to look up._
