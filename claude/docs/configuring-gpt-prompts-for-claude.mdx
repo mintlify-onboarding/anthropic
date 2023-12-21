@@ -12,7 +12,7 @@ XML tags look like this:
 
 | XML tags    |
 | ----------- |
-| `<tag>``</tag>` |
+| |
 
 Claude has been fine-tuned to recognize XML tags within prompts. These tags can be used to demarcate different subsections of a prompt. This allows Claude to compartmentalize a prompt into distinct parts. 
 
@@ -20,7 +20,7 @@ For example, suppose we want to add some text from a document to our prompt, we 
 
 | XML tags example               |
 | ------------------------------ |
-| `<doc>`Some piece of text…`</doc>` |
+| |
 
 Claude is also able to recognize other structured formats like JSON and YAML, but sticking to XML will lead to the best performance in most cases.
 
@@ -62,12 +62,12 @@ Here’s an example:
 
 | Role      | Good Prompt                                                                                                                                                                                                        |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| User      | I'd like you to rewrite the following paragraph using the following instructions: `"{{INSTRUCTIONS}}"`.Here is the paragraph:`<text>"{{PARAGRAPH}}"</text>`Please output your rewrite within `<rewrite></rewrite>` tags. |
-| Assistant | `<rewrite>    `                                                                                                                                                                                                      |
+| User      | I'd like you to rewrite the following paragraph using the following instructions: `"{{INSTRUCTIONS}}"`.Here is the paragraph Please output your rewrite within tags. |
+| Assistant |                                                                                                                                                                                          |
 
-By inserting `<rewrite>` in the `Assistant` role we have forced Claude to only provide the rest of the rewrite in its response. This avoids some of Claude’s chatty tendencies that you may experience when Claude adds a sentence or two prior to providing its answer. 
+By inserting  in the `Assistant` role we have forced Claude to only provide the rest of the rewrite in its response. This avoids some of Claude’s chatty tendencies that you may experience when Claude adds a sentence or two prior to providing its answer. 
 
-It’s important to note that if you adopt this approach in your own prompt, you will want to **pass `</rewrite>` as a stop sequence** to the API completion method.
+It’s important to note that if you adopt this approach in your own prompt, you will want to **pass  as a stop sequence** to the API completion method.
 
 For further information on this technique, see [put words in Claude's mouth](/claude/docs/put-words-in-claudes-mouth).
 

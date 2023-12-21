@@ -6,15 +6,11 @@ Welcome to Anthropic's comprehensive guide to our prompt engineering resources! 
 
 The linked materials cover core concepts, best practices, debugging checklists, prompt examples, and interactive materials. Whether you're new to prompt engineering or an experienced prompter, these resources serve to help you craft better prompts for Claude!
 
----
-
 ## Claude 2.1 & the Messages API is here!
 
 To learn more about our latest model’s features and capabilities, check out our [guide to Claude 2.1](https://docs.anthropic.com/claude/docs/claude-2p1-guide). 
 
 To learn more about the Messages API, see our [Messages API](/claude/reference/messages) documentation.
-
----
 
 ## Getting Started
 
@@ -34,8 +30,6 @@ If you **don’t have an API key**, you can still look at the tutorial and try o
 
 The [static answer key to our prompt engineering tutorial](https://docs.google.com/spreadsheets/d/1jIxjzUWG-6xBVIa2ay6yDpLyeuOh%5FhR%5FZB75a47KX%5FE/edit?usp=sharing) has all answers filled in. There are no calls to Claude made in this document - all text is static.
 
----
-
 ## In-Depth Prompt Engineering
 
 Below are additional resources that dive deeper into prompt engineering with Claude.
@@ -46,45 +40,29 @@ Our [Claude prompt engineering techniques presentation](https://docs.google.com/
 
 [undefined](https://docs.google.com/presentation/d/e/2PACX-1vTOOynV%5F8%5F14nJZMBf4nDDikuF5aLH-2yzTAayBd9bEBgWB5J4WmwZ92fVziwEKROkhgpanN5E3vopI/embed "docs.google.com") 
 
-> ## 📘
-> 
-> For Bedrock Users
-> 
-> If you are using Claude on Bedrock, we recommend you check out our [Bedrock prompt engineering deck](https://docs.google.com/presentation/d/1tjvAebcEyR8la3EmVwvjC7PHR8gfSrcsGKfTPAaManw/edit?usp=sharing) instead!
+<Note>
 
+**For Bedrock Users**
+
+If you are using Claude on Bedrock, we recommend you check out our [Bedrock prompt engineering deck](https://docs.google.com/presentation/d/1tjvAebcEyR8la3EmVwvjC7PHR8gfSrcsGKfTPAaManw/edit?usp=sharing) instead!
+</Note>
 ### Prompt Engineering Documentation
 
 This documentation and user guide you're currently reading is full of tips and tricks on troubleshooting, prompt formatting, and ways to access and talk to Claude! Use the lefthand menu to navigate to various pages. Below, we've curated a few links that we think might be of use:
 
-> ### 
-> 
-> [Configuring GPT prompts for Claude](/claude/docs/configuring-gpt-prompts-for-claude)
-> 
-> [](/configuring-gpt-prompts-for-claude)
+### [Configuring GPT prompts for Claude](/claude/docs/configuring-gpt-prompts-for-claude)
 
 A guide on how to tailor prompts designed for GPT models so they work optimally for Claude.
 
-> ### 
-> 
-> [Introduction to prompt design](/claude/docs/introduction-to-prompt-design)
-> 
-> [](/introduction-to-prompt-design)
+### [Introduction to prompt design](/claude/docs/introduction-to-prompt-design)
 
 A leaner, more basic set of information than can be found in our comprehensive prompt engineering techniques presentation, but with more in-line examples and thus perhaps more illustrative than slides alone.
 
-> ### 
-> 
-> [Constructing a prompt](/claude/docs/constructing-a-prompt)
-> 
-> [](/constructing-a-prompt)
+### [Constructing a prompt](/claude/docs/constructing-a-prompt)
 
 A high-level overview of some but not all intermediate techniques for prompt construction. While less in-depth than the presentation, it also features in-line examples that exemplify the concepts described.
 
-> ### 
-> 
-> [Optimizing your prompt](/claude/docs/optimizing-your-prompt)
-> 
-> [](/optimizing-your-prompt)
+### [Optimizing your prompt](/claude/docs/optimizing-your-prompt)
 
 An overview of how you can begin thinking about and implementing a process for iterating and evaluating prompts.
 
@@ -111,11 +89,12 @@ Here is a non-exhaustive list of the tasks we cover in the various tabs:
 * Function calling / tool use
 * Prompt chains
 
-> ## 🚧
-> 
-> Interactive Version
-> 
-> If you want to interact with and edit this workbook, you will have to make a copy, download the [Claude for Sheets add-on](https://docs.anthropic.com/claude/docs/using-claude-for-sheets), and add your API key following the instructions in the first tab.
+<Warning>
+
+**Interactive Version**
+
+If you want to interact with and edit this workbook, you will have to make a copy, download the [Claude for Sheets add-on](https://docs.anthropic.com/claude/docs/using-claude-for-sheets), and add your API key following the instructions in the first tab.
+</Warning>
 
 #### Example Harmlessness Screens
 
@@ -141,8 +120,6 @@ This [lightweight RAG demo](https://github.com/anthropics/anthropic-retrieval-de
 
 This [tool use demo](https://drive.google.com/drive/folders/1-94Fa3HxEMkxkwKppe8lp%5F9-IXXvsvv1) houses our lightweight demo for using tools/function calling with Anthropic models. 
 
----
-
 ## SDKs
 
 ### General Anthropic SDKs
@@ -155,19 +132,18 @@ This [tool use demo](https://drive.google.com/drive/folders/1-94Fa3HxEMkxkwKppe8
 * [Anthropic Bedrock **Python** SDK](https://github.com/anthropics/anthropic-bedrock-python)
 * [Anthropic Bedrock **Typescript** SDK](https://github.com/anthropics/anthropic-bedrock-typescript)
 
----
-
 ## Other Useful Resources
 
 ### Claude for Sheets
 
 You can now call Claude on Google Sheets if you have an API key! To do so, follow our [Claude for Google Sheets](/claude/docs/using-claude-for-sheets) guide.
 
-> ## 💡
-> 
-> Quick & Dirty: How does Claude for Google Sheets work?
-> 
-> With Claude for Sheets, you can call Claude as a Google Sheets function like so: `=CLAUDE("Hi Claude, why is the sky blue?")` Claude’s response to your prompt will be automatically inserted into the cell that contains the formula.
+<Tip>
+
+**Quick & Dirty: How does Claude for Google Sheets work?**
+
+With Claude for Sheets, you can call Claude as a Google Sheets function like so: `=CLAUDE("Hi Claude, why is the sky blue?")` Claude’s response to your prompt will be automatically inserted into the cell that contains the formula.
+</Tip>
 
 #### Claude for Sheets Workbook Templates
 
