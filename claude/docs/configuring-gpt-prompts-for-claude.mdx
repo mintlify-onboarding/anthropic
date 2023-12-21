@@ -12,7 +12,7 @@ XML tags look like this:
 
 | XML tags    |
 | ----------- |
-| <tag></tag> |
+| `<tag>``</tag>` |
 
 Claude has been fine-tuned to recognize XML tags within prompts. These tags can be used to demarcate different subsections of a prompt. This allows Claude to compartmentalize a prompt into distinct parts. 
 
@@ -20,7 +20,7 @@ For example, suppose we want to add some text from a document to our prompt, we 
 
 | XML tags example               |
 | ------------------------------ |
-| <doc>Some piece of text…</doc> |
+| `<doc>`Some piece of text…`</doc>` |
 
 Claude is also able to recognize other structured formats like JSON and YAML, but sticking to XML will lead to the best performance in most cases.
 
@@ -28,7 +28,7 @@ Claude is also able to recognize other structured formats like JSON and YAML, bu
 > 
 > Naming XML tags
 > 
-> There are no special or reserved names for these tags. They can be anything you want. It’s the format that matters - as long as you have `<>` and `</>` you’re good to go!
+> There are no special or reserved names for these tags. They can be anything you want. It’s the format that matters - as long as you have and you’re good to go!
 
 ---
 
@@ -106,10 +106,6 @@ Examples are especially beneficial for tasks that require consistent and reliabl
 
 We often add examples within example tags and structure them to include the question and the ideal Claude answer:
 
-| Text example with proper XML formatting                                                                                                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <example><question>Why is the sky blue?</question><answer>The sky appears blue due to sunlight's blue wavelengths scattering more easily in the atmosphere. Our eyes' sensitivity to blue light also enhances the sky's blue appearance.</answer></example> |
-
 Be sure to diversify your examples to address all the edge cases of your task. Examples work well for clarifying to Claude how to handle tricky situations like telling a user "I'm unable to answer that question" when Claude lacks the pertinent details to fully answer their question.
 
 ---
@@ -150,9 +146,6 @@ Assistant:
 > `You are an AI chatbot assistant that helps customers answer prompting questions.
 > 
 > Here are the rules you must follow during the conversation:
-> <rules>
-> {{RULES}}
-> </rules>
 > 
 > Human: How do I format a system prompt for Claude?
 > 
@@ -170,9 +163,6 @@ Example prompt without system prompt
 Human: You are an AI chatbot assistant that helps customers answer prompting questions. When I write BEGIN DIALOGUE, all text that comes afterward will be that of a user interacting with you, asking for prompting help.
 
 Here are the rules you must follow during the conversation:
-<rules>
-{{RULES}}
-</rules>
 
 BEGIN DIALOGUE
 

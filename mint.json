@@ -8,7 +8,10 @@
     "colors": {
       "primary": "#191919",
       "light": "#FAFAFA",
-      "dark": "#191919"
+      "dark": "#191919",
+      "background": {
+        "light": "#f8f4ec"
+      }
     },
     "tabs": [
         {
@@ -24,6 +27,18 @@
       "url": "https://claude.ai/login?returnTo=%2F"
     },
     "anchors": [
+      {
+        "group": "Introduction",
+        "pages": [
+          "claude/docs/guide-to-anthropics-prompt-engineering-resources",
+          "claude/docs/getting-access-to-claude",
+          "claude/docs/getting-started-with-claude",
+          "claude/docs/your-first-chat-with-claude",
+          "claude/docs/configuring-gpt-prompts-for-claude",
+          "claude/docs/using-claude-for-sheets",
+          "claude/docs/glossary"
+        ]
+      },
       {
         "name": "support",
         "icon": "headset",
@@ -41,10 +56,18 @@
       }
     ],
     "navigation": [
-        {
-            "group": "introduction",
-            "pages": ["introduction"]
-          }
+      {
+        "group": "Messages",
+        "pages": [
+            "api-reference/messages/create-a-message"
+        ]
+      },
+      {
+        "group": "Text Completions",
+        "pages": [
+            "api-reference/text-completions/create-a-text-completion"
+        ]
+      }
     ],
     "footerSocials":
       {
