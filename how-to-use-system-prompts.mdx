@@ -72,7 +72,7 @@ Assistant:
 ```text Example prompt
  Write a short and high-quality python script for the given task, something a very skilled python expert would write. You are writing code for an experienced developer so only add comments for things that are non-obvious. Make sure to include any imports required. 
 
-NEVER write anything before the ```python``` block. After you are done generating the code and after the ```python``` block, check your work carefully to make sure there are no mistakes, errors, or inconsistencies. If there are errors, list those errors in <error> tags, then generate a new version with those errors fixed. If there are no errors, write "CHECKED: NO ERRORS" in <error> tags.
+NEVER write anything before the ```python``` block. After you are done generating the code and after the ```python``` block, check your work carefully to make sure there are no mistakes, errors, or inconsistencies. If there are errors, list those errors in \<error> tags, then generate a new version with those errors fixed. If there are no errors, write "CHECKED: NO ERRORS" in \<error> tags.
 
 Human: Here is the task: A web scraper that extracts data from multiple pages and stores results in a SQLite database. Double check your work to ensure no errors or inconsistencies.
 
@@ -91,7 +91,7 @@ For example, you can still [put words in Claude's mouth](/claude/docs/put-words-
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | System    | You are a customer service agent tasked with classifying emails by type. Please output your answer and then justify your classification.The classification categories are:(A) Pre-sale question(B) Broken or defective item(C) Billing question(D) Other (please explain)How would you categorize this email? |
 | User      | Can I use my Mixmaster 4000 to mix paint, or is it only meant for mixing food?                                                                                                                                                                                                                                |
-| Assistant | (                                                                                                                                                                                                                                                                                                             |
+| Assistant | `(`                                                                                                                                                                                                                                                                                                             |
 
 ———
 
@@ -143,34 +143,31 @@ Converting your old prompt to a new system prompt is easy. Just move anything fr
 
 As a bonus, you can get rid of any indication in your prompt of what is a user request and what isn’t, such as “Here is the user request”, as the `Human:` tag will indicate that for you.
 
-Prompt without system prompt
-
-`
+```text Prompt without system prompt
 
 Human: You are a fashion industry expert. Your task is to help users by answering questions related to the fashion industry or by executing tasks requested of you. If the task is unrelated to the fashion industry, then say "I cannot help with anything not related to fashion."
 
 Here is the user request: Provide three potential names for a handbag startup targeting luxury consumers and explain your choices.
 
 Assistant:
-`
+```
 
-Prompt with system prompt
-
-`You are a fashion industry expert. Your task is to help users by answering questions related to the fashion industry or by excuting tasks requested of you. If the task is unrelated to the fashion industry, then say "I cannot help with anything not related to fashion."
+```text Prompt with system prompt
+You are a fashion industry expert. Your task is to help users by answering questions related to the fashion industry or by excuting tasks requested of you. If the task is unrelated to the fashion industry, then say "I cannot help with anything not related to fashion."
 
 Human: Provide three potential names for a handbag startup targeting luxury consumers and explain your choices.
 
 Assistant:
-`
+```
 
 ### Where can I use system prompts?
 
-> ## 🚧
-> 
-> Use system prompts with only Claude 2.1
-> 
-> We advise you to **use system prompts with only Claude 2.1**.
+<Warning>
 
+**Use system prompts with only Claude 2.1**
+
+We advise you to **use system prompts with only Claude 2.1**.
+</Warning>
 System prompts can be passed to Claude via our first party API or our [developer console](https://console.anthropic.com/). System prompts are also available on Amazon Bedrock via API. 
 
 System prompts are not available on [claude.ai](https://claude.ai/).

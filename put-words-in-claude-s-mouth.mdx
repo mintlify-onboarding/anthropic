@@ -1,7 +1,8 @@
 ---
 title: "Put words in Claude's mouth"
-description: "When using Anthropic’s API, you are not limited to just the `User` message. Claude’s prompt extends to include the `Assistant` response as well. If you supply an `Assistant` message, Claude will continue the conversation from the last `Assistant:` token."
 ---
+
+When using Anthropic’s API, you are not limited to just the `User` message. Claude’s prompt extends to include the `Assistant` response as well. If you supply an `Assistant` message, Claude will continue the conversation from the last `Assistant:` token
 
 Here’s an example:
 
@@ -10,17 +11,17 @@ Here’s an example:
 | User      | I'd like you to rewrite the following paragraph using the following instructions: "\{\{INSTRUCTIONS}}".Here is the paragraph:\<text>"\{\{PARAGRAPH}}"\</text>Please output your rewrite within  tags. |
 | Assistant | \<rewrite>                                                                                                                                                                                       |
 
-By inserting `<rewrite>` in the `Assistant` role we have forced Claude to only provide the rest of the rewrite in its response. This avoids some of Claude’s chatty tendencies that you may experience when Claude adds a sentence or two prior to providing its answer. It’s important to note that if you adopt this approach in your own prompt, you will want to pass `</rewrite>` as a stop sequence to the API completion method.
+By inserting `<rewrite>` in the `Assistant` role we have forced Claude to only provide the rest of the rewrite in its response. This avoids some of Claude’s chatty tendencies that you may experience when Claude adds a sentence or two prior to providing its answer. It’s important to note that if you adopt this approach in your own prompt, you will want to pass `\</rewrite>` as a stop sequence to the API completion method.
 
 This technique can also be used to ensure Claude always begins its answer the same way and or only outputs the desired artifact (e.g. JSON) without any preamble. Take this example prompt:
 
 | Role      | Good Prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | User      | Please extract the name, size, price, and color from this product description and output it within a JSON object.\<description>The SmartHome Mini is a compact smart home assistant available in black or white for only $49.99\. At just 5 inches wide, it lets you control lights, thermostats, and other connected devices via voice or app—no matter where you place it in your home. This affordable little hub brings convenient hands-free control to your smart devices.\</description> |
-| Assistant | `{`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Assistant | `\{`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-Claude's output will be constrained by starting with `{`, resulting in Claude outputting the rest of the requested JSON schema.
+Claude's output will be constrained by starting with `\{`, resulting in Claude outputting the rest of the requested JSON schema.
 
 | Role      | Response                                                                                          |
 | --------- | ------------------------------------------------------------------------------------------------- |
-| Assistant | "name": "SmartHome Mini","size": "5 inches wide","price": "$49.99","colors": \["black","white"\]} |
+| Assistant | "name": "SmartHome Mini","size": "5 inches wide","price": "$49.99","colors": \["black","white"\]\} |

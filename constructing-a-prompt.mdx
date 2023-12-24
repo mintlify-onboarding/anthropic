@@ -58,7 +58,7 @@ In general, the more details Claude has about your request, the better it can be
 
 ## Mark different parts of the prompt
 
-XML tags like `<tag>`these`</tag>` are helpful for demarcating some important parts of your prompt, such as rules, examples, or input text to process. Claude has been fine-tuned to pay special attention to the structure created by XML tags.
+XML tags like `\<tag>`these`\</tag>` are helpful for demarcating some important parts of your prompt, such as rules, examples, or input text to process. Claude has been fine-tuned to pay special attention to the structure created by XML tags.
 
 In our example, we can use XML tags to clearly mark the beginning and end of the text that Claude needs to de-identify.
 
@@ -85,7 +85,7 @@ At this point, this prompt is already quite well-constructed and ready to be [te
 
 ## Examples (optional)
 
-You can give Claude a better idea of how to perform the task correctly by including a few examples with your prompt. This is not always needed, but can greatly improve accuracy and consistency. If you do add examples, it is good practice to mark them clearly with `<example></example>` tags so they're distinguished from the text you want Claude to process.
+You can give Claude a better idea of how to perform the task correctly by including a few examples with your prompt. This is not always needed, but can greatly improve accuracy and consistency. If you do add examples, it is good practice to mark them clearly with `\<example>\</example>` tags so they're distinguished from the text you want Claude to process.
 
 One way to provide examples is in the form of a previous conversation. Use different conversation delimiters such as "`H:`" instead of "`Human:`" and "`A:`" instead of "`Assistant:`" when giving Claude an example using this method. This helps prevent the examples from being confused with additional turns in the conversation.
 

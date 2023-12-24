@@ -59,7 +59,7 @@ We can start with the following prompt template:
 
 We already know the level of student we want to write explanations for, so we can create three different versions of this prompt (one for each reading level). We can then give Claude a concept and have the prompts for each reading level run in parallel to generate three outlines.
 
-Then we can pass each outline Claude generates (including the `<outline></outline>` XML tags) into another set of three prompts that differ by reading level. This second set of prompts can again run in parallel to expand each sentence in the outline into a paragraph.
+Then we can pass each outline Claude generates (including the `\<outline>\</outline>` XML tags) into another set of three prompts that differ by reading level. This second set of prompts can again run in parallel to expand each sentence in the outline into a paragraph.
 
 | Role | Prompt 2                                                                                                                                                                                                                                                     |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
