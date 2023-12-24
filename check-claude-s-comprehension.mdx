@@ -1,0 +1,31 @@
+---
+title: "Check Claude's comprehension"
+description: "The best way to determine if Claude has understood your instructions is to ask Claude."
+---
+
+| Role | Prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| User | I am going to give you a sentence and you need to tell me how many times it contains the word “apple”. For example, if I say “I would like an apple” then the answer is “1” because the word “apple” is in the sentence once. You can reason through or explain anything you’d like before responding, but make sure at the very end, you end your answer with just the final answer in brackets, like this: \[1\].Do you understand the instructions? |
+
+It will usually respond by explaining the task back to you.
+
+| Role      | Response                                                                                                                                                                                                                                              |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Assistant | Yes, I understand. For a given sentence, I should count how many times the word "apple" occurs in the sentence and provide the count as my response in brackets. For example, given the input "I would like an apple", my response should be "\[1\]". |
+
+## Bonus: Use Claude's explanation to expand your prompt
+
+If Claude responds with a correct explanation of the task, you can use the response to expand your prompt. Reiterating the instructions in this manner can improve Claude's performance.
+
+| Role      | Prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| User      | I am going to give you a sentence and you need to tell me how many times it contains the word “apple”. For example, if I say “I would like an apple” then the answer is “1” because the word “apple” is in the sentence once. You can reason through or explain anything you’d like before responding, but make sure at the very end, you end your answer with just the final answer in brackets, like this: \[1\].Do you understand the instructions? |
+| Assistant | Yes, I understand. For a given sentence, I should count how many times the word "apple" occurs in the sentence and provide the count as my response in brackets. For example, given the input "I would like an apple", my response should be "\[1\]".                                                                                                                                                                                                  |
+| User      | Correct. Here is the sentence: I need one apple to bake an apple pie, and another apple to keep for later.                                                                                                                                                                                                                                                                                                                                             |
+
+<Tip>
+
+**Referencing previous conversations**
+
+Claude cannot remember previous conversations or see anything beyond the current context window. You can provide the content of a prior conversation by including it in your prompt (or list of messages if using the Messages API).
+</Tip>

@@ -1,0 +1,21 @@
+---
+title: "Break complex tasks into subtasks"
+description: "Claude performs worse at "complex" tasks which are composed of several subtasks. If you already know what those subtasks are (i.e. you understand the problem well) you can help Claude by breaking the prompt down into steps."
+---
+
+| Role | Bad Prompt                                                                                                                                                                                              |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | I want you to write an essay about the statement \{\{STATEMENT}}, with three topic sentences arguing for the statement, three topic sentences arguing against the statement, and a conclusion at the end. |
+
+Putting all the steps in one sentence can confuse Claude and cause it to follow instructions inconsistently. Here is a better version of this prompt:
+
+| Role | Good Prompt                                                                                                                                                                                                                                                                                                                      |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User | Please follow these steps:1\. Write three topic sentences arguing for \{\{STATEMENT}}.2\. Write three topic sentences arguing against \{\{STATEMENT}}.3\. Write an essay by expanding each topic sentence from Steps 1 and 2, and adding a conclusion to synthesize the arguments. Please enclose the essay in \<essay>\</essay> tags. |
+
+<Tip>
+
+**Going further**
+
+If you can't get reliable results by breaking the prompt into subtasks, you may need to split it into multiple prompts. Outputs from earlier prompts can be fed into other ones in a process called [Prompt Chaining](/claude/docs/prompt-chaining).
+</Tip>

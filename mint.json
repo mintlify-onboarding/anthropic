@@ -65,6 +65,19 @@
         ]
       },
       {
+        "group": "Prompt Designs",
+        "pages": [
+          "let-claude-say--i-don-t-know--to-prevent-hallucinations",
+          "put-words-in-claude-s-mouth",
+          "give-claude-room-to--think--before-responding",
+          "ask-claude-to-think-step-by-step",
+          "break-complex-tasks-into-subtasks",
+          "prompt-chaining",
+          "check-claude-s-comprehension",
+          "ask-claude-for-rewrites"
+        ]
+      },
+      {
         "group": "Messages",
         "pages": [
             "api-reference/messages/create-a-message"
