@@ -56,6 +56,15 @@
         ]
       },
       {
+        "group": "Prompt Designs",
+        "pages": [
+          "introduction-to-prompt-design",
+          "constructing-a-prompt",
+          "how-to-use-system-prompts",
+          "optimizing-your-prompt"
+        ]
+      },
+      {
         "group": "Messages",
         "pages": [
             "api-reference/messages/create-a-message"
