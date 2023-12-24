@@ -1,8 +1,7 @@
 ---
 title: "Constructing a prompt"
+description: "For simple tasks, writing a few sentences simply and clearly will often be sufficient for getting the response you need."
 ---
-
-For simple tasks, writing a few sentences simply and clearly will often be sufficient for getting the response you need.
 
 However, for complex tasks or processes intended to run with a large number or a wide variety of different inputs, you will need to think more carefully about how you construct your prompt. Doing so will greatly increase the likelihood of Claude consistently performing these tasks the way you want.
 
@@ -71,7 +70,7 @@ In our example, we can use XML tags to clearly mark the beginning and end of the
 
 **Text substitution**
 
-Usually, your prompt is actually a prompt template that you want to use over and over, where the instructions stay the same but the text you're processing changes over time. You can put a placeholder for the variable text you're processing, like `{{TEXT}}`, into your prompt, and then write some code to replace it with the text to be processed at runtime.
+Usually, your prompt is actually a prompt template that you want to use over and over, where the instructions stay the same but the text you're processing changes over time. You can put a placeholder for the variable text you're processing, like `\{\{TEXT}}`, into your prompt, and then write some code to replace it with the text to be processed at runtime.
 </Note>
 
 We can also ask Claude to use XML tags in _its_ response. Doing so can make it easy to extract key information in a setting where the output is automatically processed. Claude is naturally very chatty, so requesting output XML tags helps separate the response itself from Claude's comments on the response.

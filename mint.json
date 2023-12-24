@@ -65,7 +65,7 @@
         ]
       },
       {
-        "group": "Prompt Designs",
+        "group": "Useful Hacks",
         "pages": [
           "let-claude-say--i-don-t-know--to-prevent-hallucinations",
           "put-words-in-claude-s-mouth",
